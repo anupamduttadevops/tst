@@ -1,0 +1,32 @@
+---
+name: CI/CD Pipeline
+on:
+  workflow_dispatch:
+    inputs:
+      Environment:
+        description: 'Select environment to deploy'
+        required: true
+        type: choice
+        options:
+          - QA
+          - Prod
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+   CI-CD:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+    
+    - name: Deploy to QA
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'QA' || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
+      run: |
+        echo "This is QA branch"
+        
+    - name: Deploy to Production
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod' || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
+      run: |
+        echo "This is QA branch"
