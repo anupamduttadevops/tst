@@ -22,11 +22,11 @@ jobs:
     steps:
     
     - name: Deploy to QA
-      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'QA' || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'QA' || (github.event_name == 'push' && github.ref == 'refs/heads/devlop') }}
       run: |
         echo "This is QA branch"
         
     - name: Deploy to Production
       if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.Environment == 'Prod' || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
       run: |
-        echo "This is QA branch"
+        echo "This is prd branch"
